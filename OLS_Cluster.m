@@ -1,8 +1,8 @@
 % cluster OLS
-%based on Cameron_Miller 2015
+%based on Cameron_Miller (2015)
 %Written by Zheyu Ni in the Ohio State Univeristy
-%Y is the dependent variable X is dependent variable, g contains group
-%information
+%Y is the dependent variable X is dependent variable, g contains group information, e.g. g=1,2,3,4...
+
 
 function [beta, se_c]=OLS_Cluster(Y,X,g)
 
@@ -12,11 +12,11 @@ error=Y-X*beta;
 k=size(X,2);
 n=size(X,1);
 nofg=size(unique(g),1);
-B=[];
+B=zeros(k,k);
 for i = 1:nofg
     X_g=X(g==i,:);
     error_g=error(g==i);
-    B=B+X_g'*(error_g*error_g')*X_g;
+    B=B+(error_g'*X_g)'*(error_g'*X_g);
    
 end
 
