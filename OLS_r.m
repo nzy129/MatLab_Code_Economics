@@ -1,3 +1,8 @@
+% white-robust OLS
+% heteroskedasticity-robust standard errors
+% Written by Zheyu Ni in the Ohio State Univeristy
+% Y is the dependent variable X is dependent variable
+% This function report OLS coeficient: beta, white-robust standard errors: se_r, unadjusted standard error (homoscedasticity): se and residual sum of squares: RSS. 
 function [beta,se_r,se,RSS]=OLS_r(Y,X)
 
 beta=(X'*X)\X'*Y;
