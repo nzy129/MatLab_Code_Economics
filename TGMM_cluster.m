@@ -6,14 +6,16 @@ function [beta,VCV,error,W_new,J]=TGMM_cluster(Y,X,Z,W0,g)
 % their predicted errors and new weighting matrix in second stage.
 % Clustered Standard Error
 [beta1,VCV1,error1]=LinGMM(Y,X,Z,W0);
-
+k=size(Z,2)
+nofg=size(unique(g),1);
 B=zeros(k,k);
+
 for i = 1:nofg
-    X_g=X(g==i,:);
+    Z_g=Z(g==i,:);
     error_g=error1(g==i);
     %B=B+X_g'*error_g*error_g'*X_g;
     
-    B=B+(error_g'*X_g)'*(error_g'*X_g);
+    B=B+(error_g'*Z_g)'*(error_g'*Z_g);
    
 end
 
@@ -24,6 +26,6 @@ W_new=inv(1/N*B);
 [beta,VCV,error]=LinGMM(Y,X,Z,W_new);
 
 %J=1/N*error'*Z*W_new*(error'*Z);
-%Hansen J stastics for overidentification test based on Hansen (1982)
 J=error'*Z\B/(error'*Z);%N is cancelled out. 
 end
+
