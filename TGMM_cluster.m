@@ -26,6 +26,6 @@ W_new=inv(1/N*B);
 [beta,VCV,error]=LinGMM(Y,X,Z,W_new);
 
 %J=1/N*error'*Z*W_new*(error'*Z);
-J=error'*Z\B/(error'*Z)';%N is cancelled out. 
+J=(error'*Z)/B*(error'*Z)';%N is cancelled out. 
 end
 
