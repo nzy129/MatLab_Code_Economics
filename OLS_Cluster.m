@@ -7,7 +7,7 @@
 function [beta, se_c]=OLS_Cluster(Y,X,g)
 
 
-beta=(X'*X)\X'*Y;
+beta=(X'*X)\(X'*Y);
 error=Y-X*beta;
 k=size(X,2);
 n=size(X,1);
